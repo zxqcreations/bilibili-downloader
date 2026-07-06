@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bilibili 视频下载器</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+  <header class="header">
+    <h1>📺 Bilibili 视频下载器</h1>
+    <p class="subtitle">支持视频 + 弹幕下载 · 自动合并音视频</p>
+  </header>
+
+  <!-- URL Input Section -->
+  <section class="input-section">
+    <div class="input-group">
+      <input
+        type="text"
+        id="urlInput"
+        class="url-input"
+        placeholder="粘贴 Bilibili 视频链接，例如 https://www.bilibili.com/video/BV1YgT26qETR"
+        autofocus
+      />
+      <button id="cookieToggle" class="btn-toggle" title="Cookie 设置">
+        🍪
+      </button>
+      <button id="parseBtn" class="btn btn-primary">解析</button>
+    </div>
+
+    <div id="cookiePanel" class="cookie-panel hidden">
+      <label for="cookieInput">SESSDATA Cookie（可选，用于下载高清画质）</label>
+      <input
+        type="text"
+        id="cookieInput"
+        class="cookie-input"
+        placeholder="SESSDATA=xxx; buvid3=xxx; ..."
+      />
+      <p class="hint">不填则默认下载 360P/480P 画质</p>
+    </div>
+  </section>
+
+  <!-- Loading -->
+  <div id="loadingCard" class="card hidden">
+    <div class="loading-spinner"></div>
+    <p>正在获取视频信息...</p>
+  </div>
+
+  <!-- Error Card -->
+  <div id="errorCard" class="card card-error hidden">
+    <span id="errorText"></span>
+    <button class="btn-dismiss" onclick="dismissError()">✕</button>
+  </div>
+
+  <!-- Video Info Card -->
+  <section id="videoCard" class="card video-card hidden">
+    <div class="video-info">
+      <img id="videoCover" class="video-cover" src="" alt="封面" />
+      <div class="video-meta">
+        <h2 id="videoTitle"></h2>
+        <p class="video-owner">UP主: <span id="videoOwner"></span></p>
+        <p class="video-duration">时长: <span id="videoDuration"></span></p>
+        <p class="video-stat">播放: <span id="videoViews"></span> · 弹幕: <span id="videoDanmaku"></span></p>
+      </div>
+    </div>
+
+    <!-- Part selector for multi-part videos -->
+    <div id="partSelector" class="part-selector hidden">
+      <label class="part-label">选集：</label>
+      <select id="partSelect" class="part-select"></select>
+    </div>
+
+    <!-- Quality selector -->
+    <div class="download-controls">
+      <div class="quality-group">
+        <label for="qualitySelect">画质：</label>
+        <select id="qualitySelect" class="quality-select"></select>
+      </div>
+      <button id="downloadBtn" class="btn btn-download">⬇ 开始下载</button>
+    </div>
+  </section>
+
+  <!-- Download Progress Section -->
+  <section id="progressSection" class="progress-section hidden">
+    <h3>下载进度</h3>
+    <div id="progressCards"></div>
+  </section>
+
+  <!-- Downloads List -->
+  <section id="downloadsSection" class="downloads-section">
+    <h3>已完成下载</h3>
+    <div id="downloadsList" class="downloads-list">
+      <p class="empty-hint">暂无下载记录</p>
+    </div>
+  </section>
+</div>
+
+<footer class="footer">
+  <p>仅供个人学习使用 · FFmpeg: D:\ENV\ffmpeg-7.1-full_build</p>
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
