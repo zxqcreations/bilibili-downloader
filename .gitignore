@@ -1,4 +1,4 @@
 downloads/*
 **/__pycache__/
 *.py[cod]
-./cookie.txt
+cookie.txt
